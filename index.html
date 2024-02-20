@@ -1,0 +1,368 @@
+
+<script src="http://www.google.com/jsapi" type="text/javascript"></script> 
+<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+
+<link href="https://fonts.cdnfonts.com/css/chalkduster" rel="stylesheet">
+<style>
+    @import url('https://fonts.cdnfonts.com/css/chalkduster');
+</style>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+<!-- If you need support for additional languages, include them here -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link href="style.css" rel="stylesheet"/>
+<link href="fontawesome.all.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+<script defer src="fontawesome.all.min.js"></script>
+
+
+<html>
+  <head>
+		<title>Neural Network Diffusion</title>
+		<meta property="og:title" content="A Simple and Effective Pruning Approach for Large Language Models." />
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+
+  <body>
+    <br>
+        <center>
+			  <span class="near-black" style="font-size:36px;font-weight:bold">Neural Network Diffusion</span>
+			  
+			  <br>
+              <br>
+
+
+	  		<table align=center width=800px>
+	  	        <td align=center width=150px>
+	  				<center>
+	  					<span style="font-size:24px"><a href="https://kaiwang960112.github.io/">Kai Wang</a>
+						<sup style="font-size: 0.7em;left: -0.3em">1</sup>
+						</span>
+		  			</center>
+		  		</td>
+	  	        <td align=center width=150px>
+	  				<center>
+	  					<span style="font-size:24px"><a href="https://scholar.google.com.hk/citations?user=qNWDwOcAAAAJ&hl=zh-CN/">Zhaopan Xu</a>
+						  <sup style="font-size: 0.7em;left: -0.3em">1</sup>
+						</span>
+		  			</center>
+		  		</td>
+	  	        <td align=center width=150px>
+	  				<center>
+	  					<span style="font-size:24px"><a href="https://liuzhuang13.github.io/">Zhuang Liu</a>*
+						  <sup style="font-size: 0.7em;left: -0.3em">2</sup>
+						</span>
+		  			</center>
+		  		</td>
+                
+			</table>
+
+            <table align=center width=800px>
+                <td align=center width=150px>
+                    <center>
+                        <span style="font-size:24px">Yukun Zhou  
+                            <!-- <a href="http://zicokolter.com/">Yukun Zhou</a> -->
+                            
+						<sup style="font-size: 0.7em;left: -0.3em">1</sup>
+						</span>
+                    </center>
+                </td>
+                <td align=center width=150px>
+                    <center>
+                        <span style="font-size:24px"><a href="https://scholar.google.com/citations?user=foERjnQAAAAJ&hl=zh-CN">Zelin Zang</a>
+                      <sup style="font-size: 0.7em;left: -0.3em">1</sup>
+                      </span>
+                    </center>
+                </td>
+                <td align=center width=150px>
+                    <center>
+                        <span style="font-size:24px"><a href="https://people.eecs.berkeley.edu/~trevor/">Trevor Darrell</a>
+                        <sup style="font-size: 0.7em;left: -0.3em">3</sup>
+                      </span>
+                    </center>
+                </td>
+                <td align=center width=150px>
+                    <center>
+                        <span style="font-size:24px"><a href="https://www.comp.nus.edu.sg/~youy/">Yang You</a>*
+                        <sup style="font-size: 0.7em;left: -0.3em">1</sup>
+                      </span>
+                    </center>
+                </td>
+          </table>
+
+			<table align="center" width="600px">
+				<tbody>
+					<tr>
+						<td style="padding:10px">
+							<sup style="padding-right: 3px;font-size: 18px;top: -1.8em;">1</sup><img style="height:70px;" src="https://www.nus.edu.sg/images/default-source/identity-images/NUS_logo_full-horizontal.jpg">
+						</td>
+						<td style="padding:10px">
+							<sup style="padding-right: 3px;font-size: 18px;top: -1.8em;">2</sup><img style="height:70px;" src="https://aihubtest-bucket.s3.eu-north-1.amazonaws.com/public/storage/images/2627/conversions/Screenshot-2022-05-05-at-13.26.07-full.jpg">
+						</td>
+						<td style="padding:10px">
+							<sup style="padding-right: 3px;font-size: 18px;top: -1.8em;">3</sup><img style="height:70px;" src="https://logos-world.net/wp-content/uploads/2022/02/UC-Berkeley-Symbol.png">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+		  <table align="center" width="500px">
+            <tbody>
+                <tr>
+                    <td align="center" width="500px">
+                        <center>
+                            <i><span style="font-size:14px; font-weight: 200">* equal advising </span></i>
+                        </center>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table width="800" border="0" align="center" class="menu"
+            style="margin-bottom: 20px;margin-top: 20px;font-weight: bold;font-size: 20px;">
+            <tbody>
+                <tr>
+                    <!-- arxiv link -->
+                    <td align="center">
+						<span class="bg-near-black f6 no_hover br-pill ph3 pv2 dib" style="vertical-align:top;height:26px">
+							<a style="color:inherit;text-decoration:none;font-size:15px" href="ArXiv link" target="_blank">
+							<i style="padding-right:2px;font-size:23px" class="fa fa-file-pdf" aria-hidden="true"></i>
+							Paper
+							</a>
+						</span>
+                        <!-- code link -->
+						<span class="bg-near-black f6 no_hover br-pill ph3 pv2 dib" style="vertical-align:top;height:26px">
+							<a style="color:inherit;text-decoration:none;font-size:15px" href="Code link"" target="_blank">
+							<i style="padding-right:2px;font-size:23px" class="fab fa-github" aria-hidden="true"></i>
+							Code
+							</a>
+						</span>
+                        <!-- twitter link -->
+						<span class="bg-near-black f6 no_hover br-pill ph3 pv2 dib" style="vertical-align:top;height:26px">
+							<a style="color:inherit;text-decoration:none;font-size:15px" href="https://twitter.com/_mingjiesun/status/1674863399052750848"" target="_blank">
+							<i style="padding-right:2px;font-size:23px" class="fab fa-twitter" aria-hidden="true"></i>
+							Summary
+							</a>
+						</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+	</center>
+		<br>
+		    <hr>
+		  <table align=center width=1000px>
+            <tr>
+				<td align=center width=1300px>
+                    <h1 class="title is-3"><span style="color: orange;">Diffusion-based image generation </span>
+                        <span style="color: black;">vs</span>
+                        <span style="color: steelblue;"> SGD-based optimization</span></h1>
+				  <center>
+					  <img class="round" style="width:1000px" src="figs/motivation_v3.gif"/>
+				  </center>
+				</td>
+			</tr>
+		</table>
+
+		<p>
+				
+		</p>
+	      <hr>
+
+	  		  <center><h1>Abstract</h1></center>
+			  <tr>
+                <td align=center width=1300px>
+                    <center>
+                    <p style="width: 1000px; text-align: left;
+                    ">
+					Diffusion models have achieved remarkable success in image and video generation. In this work,we demonstrate that diffusion 
+					models can also generate high-performing neural network parameters. Our approach is simple, utilizing an autoencoder and 
+					a standard latent diffusion model.The autoencoder extracts latent representations of a subset of the trained network parameters.
+					A diffusion model is then trained to synthesize these latent parameter representations from random noise. It then generates new 
+					representations that are passed through the autoencoder's decoder,whose outputs are ready to use as new subsets ofnetwork parameters. 
+					Across various architectures and datasets, our diffusion process consistently generates models of comparable or improved performance over 
+					trained networks, with minimal additional cost. Notably, we empirically find that the generated models perform differently with the trained 
+					networks. Our results encourage more exploration on the versatile use of diffusion models. The code will be made public.
+                            </p>
+                        </center>
+                </td>
+                
+			  </tr>
+		  <hr>
+          <center><h1>Method</h1></center>
+          <tr>
+            <td align=center width=1300px>
+              <center>
+                  <img class="round" style="width:900px; height: 500px" src="figs/pipeline.png"/></img>
+                  <p style="width: 1000px; text-align: left;
+                  ">
+                    Illustration of the proposed p-diff framework. Our approach consists of two proceses, named parameter autoencoder and generation. 
+					Parameter autoencoder aims to extract the latent representations and reconstruct model parameters via the decoder.
+					The extracted representations are used to train a standard latent diffusion model (LDM).
+					In the inference, the random noise is fed into LDM and trained decoder to obtain the generated parameters.
+                  </p>
+                  
+              </center>
+            </td>
+        </tr>
+
+        <hr>
+          <center><h1>Results</h1></center>
+          <tr>
+            <td align=center width=1300px>
+              <center>
+                  <img class="round" style="width:1000px" src="figs/results.png"/>
+			  <p style="width: 1000px; text-align: left;
+                  ">
+				  	We present results in the format of ‘original / ensemble / p-dif’. Our method obtains similar or even higher performance than baselines. The results of p-diff is average in three runs. <b> Bold entries </b>are best results.
+
+                  </p>
+				</center>
+
+            </td>
+        </tr>
+
+		<hr>
+          <center><h1>Ablations</h1></center>
+          <tr>
+            <td align=center width=1300px>
+              <center>
+                  <img class="round" style="width:1000px" src="figs/ablation.png"/>
+				  <p style="width: 1000px; text-align: left;
+                  ">
+				  P-diff main ablation experiments.
+				   We ablate the number of orieinal models K, the location of applying our approach, and the effect of noise augmentation. 
+				   The default setings are K= 200, 
+				  applying p-diff on the deep BN parameters (between layer16 to 18), and using noise augmentation in the input parameters and latent representations. 
+				  Defaults are marked in gray. <b>Bold entries </b> are best results. 
+
+                  </p>
+              </center>
+            </td>
+        </tr>
+
+		<hr>
+          <center><h1>Is P-diff Only memorizing?</h1></center>
+          <tr>
+            <td align=center width=1300px>
+              <center>
+				<p style="width: 1000px; text-align: left;
+				">
+				Questions and experiment designs. Here, we frst askthe following questions: 1) Does p-diff just memorize the samples from the original models 
+				in the training set? 2) Is there any difference among adding noise or fne-tuning the original models, and the models generated by our approach?
+				The similarity represents the Intersection of Union (loU) over wrong predictions between/among two models. The IoU can be formulated as follows,
+				</p>
+				<div style="text-align: center;">
+					$$ \mathrm{IoU} = |P_{1}^{\mathrm{wrong}} \cap P_{2}^{\mathrm{wrong}}|/|P_{1}^{\mathrm{wrong}} \cup P_{2}^{\mathrm{wrong}}|$$
+				  </div>
+				
+				
+
+				  <img class="round" style="width:1000px" src="figs/diversity.png"/>
+				  <p style="width: 1000px; text-align: left;
+                  ">
+				   
+				  (a) shows the comparisons in four cases. It shows our p-diff can generate new parameters that perform differently with their training data (i.e. original models). 
+				  (b) displays the accuracy and max similarity of fine-tuned.noise-added, and p-diff models. All the maximum similarities are calculated with the original models. Our generated models achieve diverse similarities and superior performances compared to the original models.
+				  (c) presents the t-SNE of latent representations of the original models, p-diff models, and adding noise operation.
+                  </p>
+              </center>
+            </td>
+        </tr>
+
+		<tr>
+            <td align=center width=1300px>
+              <center>
+                  <img class="round" style="width:500px" src="figs/iou_k_scatter.png"/>
+				  <p style="width: 1000px; text-align: left;">
+					We visualize the max similarities between original and generated models with different K. The similarity range of these generated models becomes larger as K increases, demonstrating our approach can generate parameters that perform differently from the original models.
+			  </p>
+              </center>
+            </td>
+        </tr>
+
+          <hr>
+
+			<tr>
+					<left>
+						<center><h1>Acknowledgements</h1></center>
+						We thank <a href="https://kaiminghe.github.io/">Kaiming He</a>, 
+                        <a href="https://www.cogai4sci.com/">Dianbo Liu</a>, 
+                        <a href="https://scholar.google.com/citations?user=B6f3ImkAAAAJ&hl=en">Mingjia Shi</a>, 
+                        <a href="https://scholar.google.com/citations?user=NmwjI0AAAAAJ&hl=en">Zheng Zhu</a>, 
+                        <a href="https://jia-wei-liu.github.io/">Jiawei Liu</a>, 
+                        <a href="https://ai.comp.nus.edu.sg/people/yong/">Yong Liu</a>, 
+                        <a href="https://scholar.google.com/citations?user=I04VhPMAAAAJ&hl=zh-CN">Ziheng Qin</a>, 
+                        <a href="https://zhengzangw.github.io/">Zangwei Zheng</a>, 
+                        <a href="https://sites.google.com/view/yifan-zhang/%E9%A6%96%E9%A1%B5">Yifan Zhang</a>, 
+                        <a href="https://scholar.google.com/citations?user=KRUTk7sAAAAJ&hl=zh-CN">Xiangyu Peng</a>, 
+                        <a></a>Hongyan Chang, 
+                        and 
+                        David Yin for valuable discussions and feedbacks.
+					</left>
+				</td>
+			</tr>
+  		<br>
+		<hr>
+
+		<table align=center width=1000px>
+			<tr>
+				<td width=1000px>
+					<left>
+						<center><h1>BibTeX</h1></center>
+						<left>
+							<code>
+								@article{wang2024neural, <br>
+									&nbsp; &nbsp; &nbsp; title={Neural Network Diffusion}, <br> 
+									&nbsp; &nbsp; &nbsp; author={Kai Wang, Zhaopan Xu, Zhuang Liu, Yukun Zhou, Zelin Zang, Trevor Darrell and Yang You}, <br>
+									&nbsp; &nbsp; &nbsp; year={2024}, <br>
+									&nbsp; &nbsp; &nbsp; eprint={2401.xxxx}, <br>
+									&nbsp; &nbsp; &nbsp; archivePrefix={arXiv}, <br>
+									&nbsp; &nbsp; &nbsp; primaryClass={cs.CV} <br>
+							  }
+
+							</code>
+
+						</left>
+					</left>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<br>
+
+		<hr>
+          <tr>
+            <td align=center width=1300px>
+              <center>
+					Please feel free to contact us via email at <a href="mailto:kai.wang@comp.nus.edu.sg">Kai Wang</a> or <a href="mailto:ykzhou8981389@gmail.com">Yukun Zhou</a> for any inquiries or assistance.
+              </center>
+            </td>
+        </tr>
+		<script>
+			var coll = document.getElementsByClassName("collapsible");
+			var i;
+	
+			for (i = 0; i < coll.length; i++) {
+				coll[i].addEventListener("click", function() {
+					this.classList.toggle("active");
+					var content = this.nextElementSibling;
+					if (content.style.display === "block") {
+						content.style.display = "none";
+					} else {
+						content.style.display = "block";
+					}
+				});
+			}
+		</script>
+</body>	
